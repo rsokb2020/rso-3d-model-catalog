@@ -1,4 +1,4 @@
-name: build with Maven and package as Docker image
+name: Build with Maven and package as Docker image
 
 on:
   push:
