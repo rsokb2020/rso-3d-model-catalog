@@ -24,6 +24,7 @@ jobs:
       with:
         timeZone: 1
         format: 'YYYY-MM-DD-HH-mm-ss'
+
     # Setup za docker
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
