@@ -15,7 +15,7 @@ jobs:
     # Neki prebuild action, ta naj bi bil potreben za dostop do kode
     - uses: actions/checkout@v2
       with:
-        repo-token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GH_TOKEN }}
 
     # Action ki pove trenutni čas
     - name: Get Time
