@@ -14,8 +14,10 @@ jobs:
     steps:
     # Neki prebuild action, ta naj bi bil potreben za dostop do kode
     - uses: actions/checkout@v2
+      with:
+        repo-token: ${{ secrets.GH_TOKEN }}
 
-    # ACtion ki pove trenutni čas
+    # Action ki pove trenutni čas
     - name: Get Time
       id: time
       uses: nanzm/get-time-action@v1.0
