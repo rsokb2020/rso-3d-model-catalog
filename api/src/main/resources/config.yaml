@@ -10,8 +10,8 @@ kumuluzee:
   datasources:
     - jndi-name: jdbc/Model3dMetadataDS
       connection-url: jdbc:postgresql://localhost:5432/model3d-metadata
-      username: dbuser
-      password: postgres
+      username: klemen
+      password: rso6750
       max-pool-size: 20
 rest-properties:
   maintenance-mode: false

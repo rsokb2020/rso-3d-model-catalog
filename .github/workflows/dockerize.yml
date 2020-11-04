@@ -2,9 +2,9 @@ name: build with Maven and package as Docker image
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -42,5 +42,4 @@ jobs:
         # Hočemo da se pusha
         push: true
         # Ime slike z tagom s katerim enolično določimo sliko (v tem primeru timestamp od prej)
-        tags: prporso2021/model-3d-catalog:${{ steps.time.outputs.time }}
-      
+        tags: klemiba/model-3d-catalog:${{ steps.time.outputs.time }}

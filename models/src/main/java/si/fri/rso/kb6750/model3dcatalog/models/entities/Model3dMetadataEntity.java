@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "model3d_metadata")
+@Table(name = "model_3d_metadata")
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Model3dMetadataEntity.getAll",
