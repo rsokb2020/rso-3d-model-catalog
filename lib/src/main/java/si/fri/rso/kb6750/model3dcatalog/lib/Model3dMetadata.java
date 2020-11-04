@@ -2,7 +2,7 @@ package si.fri.rso.kb6750.model3dcatalog.lib;
 
 import java.time.Instant;
 
-public class Model3DMetadata {
+public class Model3dMetadata {
     private Integer modelID;
     private String title;
     private String description;

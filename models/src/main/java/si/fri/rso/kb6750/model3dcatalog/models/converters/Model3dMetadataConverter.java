@@ -1,15 +1,13 @@
 package si.fri.rso.kb6750.model3dcatalog.models.converters;
 
-import si.fri.rso.kb6750.model3dcatalog.lib.ImageMetadata;
-import si.fri.rso.kb6750.model3dcatalog.lib.Model3DMetadata;
-import si.fri.rso.kb6750.model3dcatalog.models.entities.ImageMetadataEntity;
-import si.fri.rso.kb6750.model3dcatalog.models.entities.Model3DMetadataEntity;
+import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
+import si.fri.rso.kb6750.model3dcatalog.models.entities.Model3dMetadataEntity;
 
 public class Model3dMetadataConverter {
 
-    public static Model3DMetadata toDto(Model3DMetadataEntity entity) {
+    public static Model3dMetadata toDto(Model3dMetadataEntity entity) {
 
-        Model3DMetadata dto = new Model3DMetadata();
+        Model3dMetadata dto = new Model3dMetadata();
         dto.setModelId(entity.getId());
         dto.setCreated(entity.getCreated());
         dto.setDescription(entity.getDescription());
@@ -22,9 +20,9 @@ public class Model3dMetadataConverter {
 
     }
 
-    public static Model3DMetadataEntity toEntity(Model3DMetadata dto) {
+    public static Model3dMetadataEntity toEntity(Model3dMetadata dto) {
 
-        Model3DMetadataEntity entity = new Model3DMetadataEntity();
+        Model3dMetadataEntity entity = new Model3dMetadataEntity();
         entity.setCreated(dto.getCreated());
         entity.setDescription(dto.getDescription());
         entity.setTitle(dto.getTitle());

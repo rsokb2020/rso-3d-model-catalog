@@ -11,7 +11,7 @@ import java.time.Instant;
                         query = "SELECT md FROM Model3dMetadataEntity md")
         })
 
-public class Model3DMetadataEntity {
+public class Model3dMetadataEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
