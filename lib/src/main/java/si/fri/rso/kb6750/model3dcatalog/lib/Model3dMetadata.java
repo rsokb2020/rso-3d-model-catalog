@@ -6,8 +6,8 @@ public class Model3dMetadata {
     private Integer modelID;
     private String title;
     private String description;
-    private Long numberOfVertices;
-    private Long numberOfFaces;
+    private Long vertices;
+    private Long faces;
     private Instant created;
     private String uri;
 
@@ -35,20 +35,20 @@ public class Model3dMetadata {
         this.description = description;
     }
 
-    public Long getNumberOfVertices() {
-        return numberOfVertices;
+    public Long getVertices() {
+        return vertices;
     }
 
-    public void setNumberOfVertices(Long numberOfVertices) {
-        this.numberOfVertices = numberOfVertices;
+    public void setVertices(Long vertices) {
+        this.vertices = vertices;
     }
 
-    public Long getNumberOfFaces() {
-        return numberOfFaces;
+    public Long getFaces() {
+        return faces;
     }
 
-    public void setNumberOfFaces(Long numberOfFaces) {
-        this.numberOfFaces = numberOfFaces;
+    public void setFaces(Long faces) {
+        this.faces = faces;
     }
 
     public Instant getCreated() {

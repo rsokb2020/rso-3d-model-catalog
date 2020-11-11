@@ -12,8 +12,8 @@ public class Model3dMetadataConverter {
         dto.setCreated(entity.getCreated());
         dto.setDescription(entity.getDescription());
         dto.setTitle(entity.getTitle());
-        dto.setNumberOfVertices(entity.getVertices());
-        dto.setNumberOfFaces(entity.getFaces());
+        dto.setVertices(entity.getVertices());
+        dto.setFaces(entity.getFaces());
         dto.setUri(entity.getUri());
 
         return dto;
@@ -26,8 +26,8 @@ public class Model3dMetadataConverter {
         entity.setCreated(dto.getCreated());
         entity.setDescription(dto.getDescription());
         entity.setTitle(dto.getTitle());
-        entity.setVertices(dto.getNumberOfVertices());
-        entity.setFaces(dto.getNumberOfFaces());
+        entity.setVertices(dto.getVertices());
+        entity.setFaces(dto.getFaces());
         entity.setUri(dto.getUri());
 
         return entity;
