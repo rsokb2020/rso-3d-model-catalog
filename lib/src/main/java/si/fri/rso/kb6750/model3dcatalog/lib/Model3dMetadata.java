@@ -10,7 +10,7 @@ public class Model3dMetadata {
     private Long faces;
     private Instant created;
     private String uri;
-    private String binary;
+    private String binaryArray;
 
 
     public Integer getModelId() {
@@ -70,10 +70,10 @@ public class Model3dMetadata {
     }
 
     public String getBinary() {
-        return binary;
+        return binaryArray;
     }
 
-    public void setBinary(String binary) {
-        this.binary = binary;
+    public void setBinary(String binaryArray) {
+        this.binaryArray = binaryArray;
     }
 }

@@ -27,8 +27,8 @@ public class Model3dMetadataEntity {
     private Instant created;
     @Column(name = "uri")
     private String uri;
-    @Column(name = "binary")
-    private String binary;
+    @Column(name = "binaryArray")
+    private String binaryArray;
 
 
     public Integer getId() {
@@ -87,7 +87,7 @@ public class Model3dMetadataEntity {
         this.uri = uri;
     }
 
-    public String getBinary() { return binary; }
+    public String getBinary() { return binaryArray; }
 
-    public void setBinary(String binary) { this.binary = binary; }
+    public void setBinary(String binary) { this.binaryArray = binary; }
 }
