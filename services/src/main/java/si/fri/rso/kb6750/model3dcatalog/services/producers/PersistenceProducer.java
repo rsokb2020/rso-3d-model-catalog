@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-public class PersistenceProducer {
+public class    PersistenceProducer {
 
     @PersistenceUnit(unitName = "model3d-catalog-jpa")
     private EntityManagerFactory emf;

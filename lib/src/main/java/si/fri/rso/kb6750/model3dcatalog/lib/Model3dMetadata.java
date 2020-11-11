@@ -10,16 +10,8 @@ public class Model3dMetadata {
     private Long faces;
     private Instant created;
     private String uri;
-
-    public String getBinary() {
-        return binary;
-    }
-
-    public void setBinary(String binary) {
-        this.binary = binary;
-    }
-
     private String binary;
+
 
     public Integer getModelId() {
         return modelID;
@@ -75,5 +67,13 @@ public class Model3dMetadata {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getBinary() {
+        return binary;
+    }
+
+    public void setBinary(String binary) {
+        this.binary = binary;
     }
 }
