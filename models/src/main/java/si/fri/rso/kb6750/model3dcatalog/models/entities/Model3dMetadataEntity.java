@@ -27,6 +27,9 @@ public class Model3dMetadataEntity {
     private Instant created;
     @Column(name = "uri")
     private String uri;
+    @Column(name = "binary")
+    private String binary;
+
 
     public Integer getId() {
         return id;
@@ -83,4 +86,8 @@ public class Model3dMetadataEntity {
     public void setUri(String uri) {
         this.uri = uri;
     }
+
+    public String getBinary() { return binary; }
+
+    public void setBinary(String binary) { this.binary = binary; }
 }

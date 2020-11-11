@@ -15,9 +15,9 @@ public class Model3dMetadataConverter {
         dto.setVertices(entity.getVertices());
         dto.setFaces(entity.getFaces());
         dto.setUri(entity.getUri());
+        dto.setBinary(entity.getBinary());
 
         return dto;
-
     }
 
     public static Model3dMetadataEntity toEntity(Model3dMetadata dto) {
@@ -29,9 +29,8 @@ public class Model3dMetadataConverter {
         entity.setVertices(dto.getVertices());
         entity.setFaces(dto.getFaces());
         entity.setUri(dto.getUri());
+        entity.setBinary(dto.getBinary());
 
         return entity;
-
     }
-
 }

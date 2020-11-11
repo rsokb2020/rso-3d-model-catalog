@@ -11,6 +11,16 @@ public class Model3dMetadata {
     private Instant created;
     private String uri;
 
+    public String getBinary() {
+        return binary;
+    }
+
+    public void setBinary(String binary) {
+        this.binary = binary;
+    }
+
+    private String binary;
+
     public Integer getModelId() {
         return modelID;
     }
