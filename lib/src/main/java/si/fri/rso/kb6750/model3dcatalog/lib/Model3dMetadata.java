@@ -7,10 +7,11 @@ public class Model3dMetadata {
     private String title;
     private String description;
     private Long vertices;
-    private Long faces;
+    private Long normals;
     private Instant created;
-    private String uri;
+    // private String uri;
     private String binaryArray;
+    private String assetBundleBinaryArray;
 
 
     public Integer getModelId() {
@@ -45,12 +46,12 @@ public class Model3dMetadata {
         this.vertices = vertices;
     }
 
-    public Long getFaces() {
-        return faces;
+    public Long getNormals() {
+        return normals;
     }
 
-    public void setFaces(Long faces) {
-        this.faces = faces;
+    public void setNormals(Long normals) {
+        this.normals = normals;
     }
 
     public Instant getCreated() {
@@ -60,14 +61,14 @@ public class Model3dMetadata {
     public void setCreated(Instant created) {
         this.created = created;
     }
-
+    /*
     public String getUri() {
         return uri;
     }
 
     public void setUri(String uri) {
         this.uri = uri;
-    }
+    }*/
 
     public String getBinary() {
         return binaryArray;
@@ -75,5 +76,13 @@ public class Model3dMetadata {
 
     public void setBinary(String binaryArray) {
         this.binaryArray = binaryArray;
+    }
+
+    public String getAssetBundleBinaryArray() {
+        return assetBundleBinaryArray;
+    }
+
+    public void setAssetBundleBinaryArray(String assetBundleBinaryArray) {
+        this.assetBundleBinaryArray = assetBundleBinaryArray;
     }
 }

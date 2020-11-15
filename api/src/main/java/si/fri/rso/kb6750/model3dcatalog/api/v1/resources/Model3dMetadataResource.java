@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.commons.codec.binary.Base64;
 import si.fri.rso.kb6750.model3dcatalog.lib.ImageMetadata;
 import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
 import si.fri.rso.kb6750.model3dcatalog.services.beans.ImageMetadataBean;
@@ -57,13 +58,30 @@ public class Model3dMetadataResource {
         return Response.status(Response.Status.OK).entity(model3dMetadata).build();
     }
 
+    @GET
+    @Path("/{model3dMetadataId}/assetBundle")
+    public Response getModel3dMetadataAssetBundle(@PathParam("model3dMetadataId") Integer model3dMetadataId) {
+
+        Model3dMetadata model3dMetadata = model3dMetadataBean.getModel3dMetadata(model3dMetadataId);
+
+        if (model3dMetadata == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.status(Response.Status.OK).entity(Base64.decodeBase64(model3dMetadata.getAssetBundleBinaryArray())).build();
+    }
+
     @POST
     public Response createModel3dMetadata(Model3dMetadata model3dMetadata) {
 
-        if ((model3dMetadata.getTitle() == null || model3dMetadata.getDescription() == null || model3dMetadata.getUri() == null)) {
+        if ((model3dMetadata.getTitle() == null || model3dMetadata.getDescription() == null/* || model3dMetadata.getUri() == null*/)) {
+            System.out.println(model3dMetadata.getTitle());
+            System.out.println(model3dMetadata.getDescription());
+            // System.out.println(model3dMetadata.getUri());
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         else {
+            System.out.println(model3dMetadata.toString());
             model3dMetadata = model3dMetadataBean.createModel3dMetadata(model3dMetadata);
         }
 

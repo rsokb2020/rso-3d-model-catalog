@@ -1,5 +1,6 @@
 package si.fri.rso.kb6750.model3dcatalog.models.converters;
 
+import org.apache.commons.codec.binary.Base64;
 import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
 import si.fri.rso.kb6750.model3dcatalog.models.entities.Model3dMetadataEntity;
 
@@ -13,10 +14,10 @@ public class Model3dMetadataConverter {
         dto.setDescription(entity.getDescription());
         dto.setTitle(entity.getTitle());
         dto.setVertices(entity.getVertices());
-        dto.setFaces(entity.getFaces());
-        dto.setUri(entity.getUri());
-        dto.setBinary(entity.getBinary());
-
+        dto.setNormals(entity.getNormals());
+        // dto.setUri(entity.getUri());
+        dto.setBinary(Base64.encodeBase64String(entity.getBinary()));
+        dto.setAssetBundleBinaryArray(Base64.encodeBase64String(entity.getAssetBundleBinaryArray()));
         return dto;
     }
 
@@ -27,10 +28,10 @@ public class Model3dMetadataConverter {
         entity.setDescription(dto.getDescription());
         entity.setTitle(dto.getTitle());
         entity.setVertices(dto.getVertices());
-        entity.setFaces(dto.getFaces());
-        entity.setUri(dto.getUri());
-        entity.setBinary(dto.getBinary());
-
+        entity.setNormals(dto.getNormals());
+        // entity.setUri(dto.getUri());
+        entity.setBinary(Base64.decodeBase64(dto.getBinary()));
+        entity.setAssetBundleBinaryArray(Base64.decodeBase64(dto.getAssetBundleBinaryArray()));
         return entity;
     }
 }

@@ -21,14 +21,16 @@ public class Model3dMetadataEntity {
     private String description;
     @Column(name = "vertices")
     private Long vertices;
-    @Column(name = "faces")
-    private Long faces;
+    @Column(name = "normals")
+    private Long normals;
     @Column(name = "created")
     private Instant created;
-    @Column(name = "uri")
-    private String uri;
+    // @Column(name = "uri")
+    // private String uri;
     @Column(name = "binaryArray")
-    private String binaryArray;
+    private byte[] binaryArray;
+    @Column(name = "assetBundlebinaryArray")
+    private byte[] assetBundleBinaryArray;
 
 
     public Integer getId() {
@@ -63,12 +65,12 @@ public class Model3dMetadataEntity {
         this.vertices = vertices;
     }
 
-    public Long getFaces() {
-        return faces;
+    public Long getNormals() {
+        return normals;
     }
 
-    public void setFaces(Long faces) {
-        this.faces = faces;
+    public void setNormals(Long normals) {
+        this.normals = normals;
     }
 
     public Instant getCreated() {
@@ -79,15 +81,24 @@ public class Model3dMetadataEntity {
         this.created = created;
     }
 
+    /*
     public String getUri() {
         return uri;
     }
 
     public void setUri(String uri) {
         this.uri = uri;
+    }*/
+
+    public byte[] getBinary() { return binaryArray; }
+
+    public void setBinary(byte[] binary) { this.binaryArray = binary; }
+
+    public byte[] getAssetBundleBinaryArray() {
+        return assetBundleBinaryArray;
     }
 
-    public String getBinary() { return binaryArray; }
-
-    public void setBinary(String binary) { this.binaryArray = binary; }
+    public void setAssetBundleBinaryArray(byte[] assetBundleBinaryArray) {
+        this.assetBundleBinaryArray = assetBundleBinaryArray;
+    }
 }

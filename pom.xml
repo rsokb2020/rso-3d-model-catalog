@@ -76,6 +76,7 @@
                 <artifactId>model-3d-catalog-lib</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
