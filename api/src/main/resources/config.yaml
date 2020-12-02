@@ -9,9 +9,9 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/Model3dMetadataDS
-      connection-url: jdbc:postgresql://ruby.db.elephantsql.com:5432/ikhrrgux
-      username: ikhrrgux
-      password: nt-S4Q72NLci1Kyku_HHyr9oCg80devt
+      connection-url: jdbc:postgresql://localhost:5432/model3d-metadata
+      username: klemen
+      password: rso6750
       max-pool-size: 20
 rest-properties:
   maintenance-mode: false

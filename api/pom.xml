@@ -24,7 +24,6 @@
             <artifactId>kumuluzee-config-etcd</artifactId>
             <groupId>com.kumuluz.ee.config</groupId>
         </dependency>
-
         <dependency>
             <groupId>si.fri.rso.kb6750</groupId>
             <artifactId>model-3d-catalog-services</artifactId>

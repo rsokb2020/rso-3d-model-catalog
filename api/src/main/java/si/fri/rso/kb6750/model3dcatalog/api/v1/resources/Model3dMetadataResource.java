@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.apache.commons.codec.binary.Base64;
+import org.json.JSONObject;
 import si.fri.rso.kb6750.model3dcatalog.lib.ImageMetadata;
 import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
 import si.fri.rso.kb6750.model3dcatalog.services.beans.ImageMetadataBean;
@@ -46,8 +47,25 @@ public class Model3dMetadataResource {
     }
 
     @GET
-    @Path("/{model3dMetadataId}")
+    @Path("/info")
     public Response getModel3dMetadata(@PathParam("model3dMetadataId") Integer model3dMetadataId) {
+
+        JSONObject json = new JSONObject();
+
+        json.put("clani", "['kb6750']");
+        json.put("opis_projekta", "Aplikacija za nalaganje,shranjevanje in prikazovanje 3d modelov.");
+        json.put("mikrostoritve", "['52.142.34.154:8080/v1/models3d','40.88.193.71:8080/v1/parser']");
+        // json.put("uri", "This value should get removed soon.");
+        json.put("github", "['https://github.com/rsokb2020/rso-3d-model-parser,'https://github.com/rsokb2020/rso-3d-model-catalog']");
+        json.put("travis", "['https://github.com/rsokb2020/rso-3d-model-parser/actions','https://github.com/rsokb2020/rso-3d-model-catalog/actions']");
+        json.put("dockerhub", "['https://hub.docker.com/repository/docker/klemiba/model-3d-parser'],['https://hub.docker.com/repository/docker/klemiba/model-3d-catalog']");
+
+        return Response.status(Response.Status.OK).entity(json).build();
+    }
+
+    @GET
+    @Path("/{model3dMetadataId}")
+    public Response getModel3dMetadataInfo(@PathParam("model3dMetadataId") Integer model3dMetadataId) {
 
         Model3dMetadata model3dMetadata = model3dMetadataBean.getModel3dMetadata(model3dMetadataId);
 
