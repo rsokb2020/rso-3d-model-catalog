@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.apache.commons.codec.binary.Base64;
-import org.json.JSONObject;
 import si.fri.rso.kb6750.model3dcatalog.lib.ImageMetadata;
 import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
 import si.fri.rso.kb6750.model3dcatalog.services.beans.ImageMetadataBean;

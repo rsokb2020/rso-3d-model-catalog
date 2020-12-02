@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: image-catalog-deployment
+  name: model-3d-catalog-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: image-catalog
+      app: model-3d-catalog
   template:
     metadata:
       labels:
-        app: image-catalog
+        app: model-3d-catalog
     spec:
       containers:
-        - image: prporso2021/image-catalog:2020-10-30-02-45-03
-          name: image-catalog
+        - image: klemiba/model-3d-catalog:2020-11-18-04-49-32
+          name: model-3d-catalog
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://pg-rso2021.postgres.database.azure.com:5432/postgres
+              value: jdbc:postgresql://ruby.db.elephantsql.com:5432/ikhrrgux
             - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: skrbnik@pg-rso2021
+              value: ikhrrgux
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: image-catalog
+  name: model-3d-catalog
 spec:
   type: LoadBalancer
   ports:
@@ -43,4 +43,4 @@ spec:
       protocol: TCP
       targetPort: server
   selector:
-    app: image-catalog
+    app: model-3d-catalog
