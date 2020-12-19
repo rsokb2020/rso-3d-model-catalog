@@ -44,7 +44,7 @@ public class Model3dMetadataResource {
 
         return Response.status(Response.Status.OK).entity(model3dMetadata).build();
     }
-
+    /*
     @GET
     @Path("/info")
     public Response getModel3dMetadataInfo(@PathParam("model3dMetadataId") Integer model3dMetadataId) {
@@ -60,7 +60,7 @@ public class Model3dMetadataResource {
         json.put("dockerhub", "['https://hub.docker.com/repository/docker/klemiba/model-3d-parser'],['https://hub.docker.com/repository/docker/klemiba/model-3d-catalog']");
 
         return Response.status(Response.Status.OK).entity(json).build();
-    }
+    }*/
 
     @GET
     @Path("/{model3dMetadataId}")
