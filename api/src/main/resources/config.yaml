@@ -13,5 +13,21 @@ kumuluzee:
       username: klemen
       password: rso6750
       max-pool-size: 20
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/Model3dMetadataDS
+      consul-health-check:
+        connection-url: http://52.151.200.181/ui/hashidc1/nodes/azure-consul-server-0/health-checks
+  metrics:
+    web-instrumentation:
+      - name: models-endpoint
+        url-pattern;: /v1/models/*
+  config:
+    consul:
+      agent: http://52.151.200.181:80
+
 rest-properties:
   maintenance-mode: false
+  broken: false
