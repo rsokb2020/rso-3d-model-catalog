@@ -13,13 +13,13 @@ spec:
         app: model-3d-catalog
     spec:
       containers:
-        - image: klemiba/model-3d-catalog:2020-11-18-04-49-32
+        - image: klemiba/model-3d-catalog:2020-12-19-23-41-48
           name: model-3d-catalog
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://ruby.db.elephantsql.com:5432/ikhrrgux
+              value: jdbc:postgresql://ec2-52-21-247-176.compute-1.amazonaws.com:5432/d17ivlu7pjbb3k
             - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: ikhrrgux
+              value: zhiqzqdrlrfpsy
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -48,7 +48,7 @@ kind: Service
 metadata:
   name: model-3d-catalog
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       protocol: TCP

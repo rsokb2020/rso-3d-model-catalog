@@ -9,9 +9,9 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/Model3dMetadataDS
-      connection-url: jdbc:postgresql://localhost:5432/model3d-metadata
-      username: klemen
-      password: rso6750
+      connection-url: jdbc:postgresql://ec2-52-21-247-176.compute-1.amazonaws.com:5432/d17ivlu7pjbb3k
+      username: zhiqzqdrlrfpsy
+      password: 552148d0097d37874e87d6b0faba58b43e503583780f865d7448eb7a140ecae7
       max-pool-size: 20
   health:
     checks:
@@ -27,6 +27,26 @@ kumuluzee:
   config:
     consul:
       agent: http://52.151.200.181:80
+  logs:
+    config-file: '<?xml version="1.0" encoding="UTF-8"?>
+                          <Configuration name="comments">
+                              <Appenders>
+                                  <Console name="console" target="SYSTEM_OUT">
+                                      <PatternLayout pattern="%d %p %marker %m %X %ex %n"/>
+                                  </Console>
+                                  <Socket name="logstash" host="a9e1c28f-90e9-4962-a4f8-9a03f3658404-ls.logit.io"
+                                  port="18515" protocol="udp">
+                                      <JSONLayout complete="false" compact="true" eventEol="true" charset="UTF-8" properties="true"/>
+                                  </Socket>
+                              </Appenders>
+                              <Loggers>
+                                  <!-- Default logger -->
+                                  <Root level="all">
+                                      <AppenderRef ref="console" level="info" />
+                                      <AppenderRef ref="logstash" level="trace" />
+                                  </Root>
+                              </Loggers>
+                          </Configuration>'
 
 rest-properties:
   maintenance-mode: false
