@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
+import com.kumuluz.ee.logs.cdi.Log;
 
 import org.apache.commons.codec.binary.Base64;
 import si.fri.rso.kb6750.model3dcatalog.lib.ImageMetadata;
@@ -23,6 +24,7 @@ import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
 import si.fri.rso.kb6750.model3dcatalog.services.beans.ImageMetadataBean;
 import si.fri.rso.kb6750.model3dcatalog.services.beans.Model3dMetadataBean;
 
+@Log
 @ApplicationScoped
 @Path("/models3d")
 @Consumes(MediaType.APPLICATION_JSON)
