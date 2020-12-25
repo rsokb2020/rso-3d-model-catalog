@@ -25,6 +25,6 @@ public class ResponseHeaderFilter implements ContainerResponseFilter {
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
-        System.out.println("Request header: " + httpHeaders.getRequestHeader("contextMap.uniqueRequestId"));
+        System.out.println("Request header: " + httpHeaders.toString());
     }
 }
