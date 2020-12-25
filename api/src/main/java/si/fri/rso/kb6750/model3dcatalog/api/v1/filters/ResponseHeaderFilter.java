@@ -25,9 +25,6 @@ public class ResponseHeaderFilter implements ContainerResponseFilter {
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
-        System.out.println("Request header: " + containerRequestContext.getHeaders().toString());
-        System.out.println("Request header: " + containerResponseContext.getHeaders().toString());
-        System.out.println("Request header: " + containerRequestContext.getHeaderString("request-chain"));
-        System.out.println("Request header: " + containerResponseContext.getHeaders().toString());
+        System.out.println("Request header in Response filter: " + containerRequestContext.getHeaderString("request-chain"));
     }
 }
