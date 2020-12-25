@@ -22,7 +22,7 @@ public class PreMatchingHeaderFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext ctx)  {
-
+        System.out.println("INcoming headers: " + ctx.getHeaders().toString());
         String idFromHeader = ctx.getHeaderString("request-chain");
         if(idFromHeader == null){
             idFromHeader = UUID.randomUUID().toString();
