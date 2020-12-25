@@ -1,5 +1,5 @@
 package si.fri.rso.kb6750.model3dcatalog.api.v1.filters;
-
+/*
 import com.kumuluz.ee.logs.cdi.Log;
 import si.fri.rso.kb6750.model3dcatalog.config.RestProperties;
 
@@ -24,4 +24,4 @@ public class ResponseHeaderFilter implements ContainerResponseFilter {
         containerRequestContext.getHeaders().add("request-chain", restProperties.getRequestChainHeader());
         containerResponseContext.getHeaders().add("request-chain", restProperties.getRequestChainHeader());
     }
-}
+}*/
