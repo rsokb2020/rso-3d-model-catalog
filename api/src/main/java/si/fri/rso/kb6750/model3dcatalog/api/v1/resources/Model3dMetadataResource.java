@@ -29,7 +29,6 @@ import si.fri.rso.kb6750.model3dcatalog.services.beans.Model3dMetadataBean;
 @Path("/models3d")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-
 public class Model3dMetadataResource {
     private Logger log = Logger.getLogger(Model3dMetadataResource.class.getName());
 

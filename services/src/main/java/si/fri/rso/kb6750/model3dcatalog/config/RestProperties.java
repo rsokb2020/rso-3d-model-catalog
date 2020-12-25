@@ -14,6 +14,8 @@ public class RestProperties {
     @ConfigValue(watch = true)
     private Boolean broken;
 
+    private String requestChainHeader;
+
     public Boolean getMaintenanceMode() {
         return this.maintenanceMode;
     }
@@ -24,5 +26,13 @@ public class RestProperties {
         this.maintenanceMode = maintenanceMode;
     }
     public void setBroken(final Boolean broken) {this.broken = broken;
+    }
+
+    public String getRequestChainHeader() {
+        return this.requestChainHeader;
+    }
+
+    public void setRequestChainHeader(final String requestChainHeader) {
+        this.requestChainHeader = requestChainHeader;
     }
 }

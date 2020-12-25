@@ -27,6 +27,7 @@ public class LogContextInterceptor {
         settings.put("applicationVersion", EeConfig.getInstance().getVersion());
         settings.put("uniqueInstanceId", EeRuntime.getInstance().getInstanceId());
 
+        //Todo: z rest filetrjom nastavljal request HEADER zato da se po logih lahko sledi enemu requestu
         settings.put("uniqueRequestId", UUID.randomUUID().toString());
 
         try (final CloseableThreadContext.Instance ctc = CloseableThreadContext.putAll(settings)) {
