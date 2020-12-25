@@ -28,5 +28,6 @@ public class PreMatchingHeaderFilter implements ContainerRequestFilter {
             idFromHeader = UUID.randomUUID().toString();
         }
         restProperties.setRequestChainHeader(idFromHeader);
+        ctx.getHeaders().add("request-chain", idFromHeader);
     }
 }
