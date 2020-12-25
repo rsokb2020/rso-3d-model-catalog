@@ -37,7 +37,7 @@ public class Model3dMetadataResource {
 
     @Context
     protected UriInfo uriInfo;
-
+    @Log
     @GET
     public Response getModel3dMetadata() {
 
@@ -62,7 +62,7 @@ public class Model3dMetadataResource {
 
         return Response.status(Response.Status.OK).entity(json).build();
     }*/
-
+    @Log
     @GET
     @Path("/{model3dMetadataId}")
     public Response getModel3dMetadata(@PathParam("model3dMetadataId") Integer model3dMetadataId) {
@@ -75,7 +75,7 @@ public class Model3dMetadataResource {
 
         return Response.status(Response.Status.OK).entity(model3dMetadata).build();
     }
-
+    @Log
     @GET
     @Path("/{model3dMetadataId}/assetBundle")
     public Response getModel3dMetadataAssetBundle(@PathParam("model3dMetadataId") Integer model3dMetadataId) {
@@ -88,7 +88,7 @@ public class Model3dMetadataResource {
 
         return Response.status(Response.Status.OK).entity(Base64.decodeBase64(model3dMetadata.getAssetBundleBinaryArray())).build();
     }
-
+    @Log
     @POST
     public Response createModel3dMetadata(Model3dMetadata model3dMetadata) {
 
@@ -106,7 +106,7 @@ public class Model3dMetadataResource {
         return Response.status(Response.Status.OK).entity(model3dMetadata).build();
 
     }
-
+    @Log
     @PUT
     @Path("{model3dMetadataId}")
     public Response putModel3dMetadata(@PathParam("model3dMetadataId") Integer model3dMetadataId,
@@ -121,7 +121,7 @@ public class Model3dMetadataResource {
         return Response.status(Response.Status.NOT_MODIFIED).build();
 
     }
-
+    @Log
     @DELETE
     @Path("{model3dMetadataId}")
     public Response deleteModel3dMetadata(@PathParam("model3dMetadataId") Integer model3dMetadataId) {
