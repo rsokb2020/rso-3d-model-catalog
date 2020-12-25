@@ -30,10 +30,10 @@ public class LogContextInterceptor {
         settings.put("environmentType", EeConfig.getInstance().getEnv().getName());
         settings.put("applicationName", EeConfig.getInstance().getName());
         settings.put("applicationVersion", EeConfig.getInstance().getVersion());
-        settings.put("uniqueInstanceId", restProperties.getRequestChainHeader());
+        settings.put("uniqueInstanceId", EeRuntime.getInstance().getInstanceId());
 
         //Todo: z rest filetrjom nastavljal request HEADER zato da se po logih lahko sledi enemu requestu
-        settings.put("uniqueRequestId", UUID.randomUUID().toString());
+        settings.put("uniqueRequestId", restProperties.getRequestChainHeader());
 
         System.out.println("Prematch ID: " + restProperties.getRequestChainHeader());
 
