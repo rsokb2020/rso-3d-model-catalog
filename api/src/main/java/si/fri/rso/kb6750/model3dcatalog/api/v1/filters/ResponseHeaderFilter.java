@@ -21,5 +21,6 @@ public class ResponseHeaderFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
         containerRequestContext.getHeaders().add("request-chain", restProperties.getRequestChainHeader());
+        containerResponseContext.getHeaders().add("request-chain", restProperties.getRequestChainHeader());
     }
 }
