@@ -13,7 +13,6 @@ import java.util.UUID;
 @Log
 @Provider
 @ApplicationScoped
-@PreMatching
 public class ResponseHeaderFilter implements ContainerResponseFilter {
 
     @Inject
