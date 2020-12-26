@@ -39,8 +39,15 @@ public class Model3dMetadataBean {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
                 .build();
 
-        return JPAUtils.queryEntities(em, Model3dMetadataEntity.class, queryParameters).stream()
+        List<Model3dMetadata> model3dMetadataList = JPAUtils.queryEntities(em, Model3dMetadataEntity.class, queryParameters).stream()
                 .map(Model3dMetadataConverter::toDto).collect(Collectors.toList());
+
+        System.out.println("Models in catalog list: ");
+        for (Model3dMetadata model3dMetadata : model3dMetadataList) {
+            System.out.println(model3dMetadata);
+        }
+
+        return model3dMetadataList;
     }
 
     public Model3dMetadata getModel3dMetadata(Integer id) {
