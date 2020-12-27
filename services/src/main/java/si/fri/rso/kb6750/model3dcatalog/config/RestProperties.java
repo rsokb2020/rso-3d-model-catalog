@@ -13,9 +13,9 @@ public class RestProperties {
     private Boolean maintenanceMode;
     @ConfigValue(watch = true)
     private Boolean broken;
-
     private String requestChainHeader;
-
+    @ConfigValue(watch = true)
+    private String parserServiceIp;
     public Boolean getMaintenanceMode() {
         return this.maintenanceMode;
     }
@@ -34,5 +34,13 @@ public class RestProperties {
 
     public void setRequestChainHeader(final String requestChainHeader) {
         this.requestChainHeader = requestChainHeader;
+    }
+
+    public String getParserServiceIp() {
+        return parserServiceIp;
+    }
+
+    public void setParserServiceIp(String parserServiceIp) {
+        this.parserServiceIp = parserServiceIp;
     }
 }

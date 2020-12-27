@@ -51,3 +51,4 @@ kumuluzee:
 rest-properties:
   maintenance-mode: false
   broken: false
+  parser-service-ip: http://20.75.154.234/model-3d-parser/v1/parser
