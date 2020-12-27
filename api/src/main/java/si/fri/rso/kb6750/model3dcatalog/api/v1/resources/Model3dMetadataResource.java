@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 import com.kumuluz.ee.logs.cdi.Log;
@@ -75,6 +76,23 @@ public class Model3dMetadataResource {
 
         return Response.status(Response.Status.OK).entity(model3dMetadata).build();
     }
+
+    @Log
+    @GET
+    @Path("/{model3dMetadataId}/sl")
+    public Response getModel3dMetadataSlovenian(@PathParam("model3dMetadataId") Integer model3dMetadataId) throws IOException, InterruptedException {
+
+        Model3dMetadata model3dMetadata = model3dMetadataBean.getModel3dMetadataSlovenian(model3dMetadataId);
+
+        if (model3dMetadata == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+
+
+        return Response.status(Response.Status.OK).entity(model3dMetadata).build();
+    }
+
     @Log
     @GET
     @Path("/{model3dMetadataId}/assetBundle")

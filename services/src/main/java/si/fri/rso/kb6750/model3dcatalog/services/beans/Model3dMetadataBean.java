@@ -8,10 +8,15 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.UriInfo;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,9 +24,9 @@ import java.util.stream.Collectors;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
-import org.eclipse.microprofile.faulttolerance.Fallback;
-import org.eclipse.microprofile.faulttolerance.Timeout;
+//import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+//import org.eclipse.microprofile.faulttolerance.Fallback;
+//import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.json.JSONObject;
 import si.fri.rso.kb6750.model3dcatalog.config.RestProperties;
 import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
@@ -76,9 +81,43 @@ public class Model3dMetadataBean {
         return model3dMetadata;
     }
 
-    @Timeout(value = 4, unit = ChronoUnit.SECONDS)
-    @CircuitBreaker(requestVolumeThreshold = 3)
-    @Fallback(fallbackMethod = "parseModelFallback")
+    public Model3dMetadata getModel3dMetadataSlovenian(Integer id) throws IOException, InterruptedException {
+
+        Model3dMetadataEntity model3dMetadataEntity = em.find(Model3dMetadataEntity.class, id);
+
+        if (model3dMetadataEntity == null) {
+            throw new NotFoundException();
+        }
+
+        Model3dMetadata model3dMetadata = Model3dMetadataConverter.toDto(model3dMetadataEntity);
+
+        if(model3dMetadata.getNormals() == null || model3dMetadata.getVertices() == null){
+            model3dMetadata = parseModel3dMetadata(model3dMetadata);
+        }
+        String q = "q=" + model3dMetadata.getTitle() + "%3B" + model3dMetadata.getDescription();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
+                .header("content-type", "application/x-www-form-urlencoded")
+                .header("accept-encoding", "application/gzip")
+                .header("x-rapidapi-key", "214b6f647cmshf4546d2f616ce97p1d05b1jsnc2a9f0b5b749")
+                .header("x-rapidapi-host", "google-translate1.p.rapidapi.com")
+                .method("POST", HttpRequest.BodyPublishers.ofString(q+"&source=en&target=sl"))
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        String translated = response.body();
+        JSONObject json = new JSONObject(translated);
+        String[] parts = json.getJSONObject("data").getJSONArray("translations").getJSONObject(0).getString("translatedText").split(";");
+        System.out.println(parts[0]);
+        System.out.println(parts[1]);
+        model3dMetadata.setDescription(parts[1]);
+        model3dMetadata.setTitle(parts[0]);
+        return model3dMetadata;
+    }
+
+    //@Timeout(value = 4, unit = ChronoUnit.SECONDS)
+    //@CircuitBreaker(requestVolumeThreshold = 3)
+    //@Fallback(fallbackMethod = "parseModelFallback")
     public Model3dMetadata parseModel3dMetadata(Model3dMetadata model3dMetadata){
         try {
             String url = restProperties.getParserServiceIp();
