@@ -1,5 +1,6 @@
 package si.fri.rso.kb6750.model3dcatalog.services.beans;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
 import si.fri.rso.kb6750.model3dcatalog.models.converters.Model3dMetadataConverter;
 import si.fri.rso.kb6750.model3dcatalog.models.entities.Model3dMetadataEntity;
 
-@RequestScoped
+@ApplicationScoped
 public class Model3dMetadataBean {
     private Logger log = Logger.getLogger(Model3dMetadataBean.class.getName());
 
@@ -73,10 +74,10 @@ public class Model3dMetadataBean {
         }
 
         Model3dMetadata model3dMetadata = Model3dMetadataConverter.toDto(model3dMetadataEntity);
-
+        /*
         if(model3dMetadata.getNormals() == null || model3dMetadata.getVertices() == null){
             model3dMetadata = parseModel3dMetadata(model3dMetadata);
-        }
+        }*/
 
         return model3dMetadata;
     }

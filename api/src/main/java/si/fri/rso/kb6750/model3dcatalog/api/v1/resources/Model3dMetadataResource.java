@@ -1,5 +1,6 @@
 package si.fri.rso.kb6750.model3dcatalog.api.v1.resources;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,16 +15,26 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.*;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
 import com.kumuluz.ee.logs.cdi.Log;
 
 import org.apache.commons.codec.binary.Base64;
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
+import org.json.JSONObject;
+import si.fri.rso.kb6750.model3dcatalog.config.RestProperties;
+import si.fri.rso.kb6750.model3dcatalog.dtos.ModelParserRequest;
 import si.fri.rso.kb6750.model3dcatalog.lib.ImageMetadata;
 import si.fri.rso.kb6750.model3dcatalog.lib.Model3dMetadata;
 import si.fri.rso.kb6750.model3dcatalog.services.beans.ImageMetadataBean;
 import si.fri.rso.kb6750.model3dcatalog.services.beans.Model3dMetadataBean;
+import si.fri.rso.kb6750.model3dcatalog.services.clients.ModelParserApi;
 
 @Log
 @ApplicationScoped
@@ -35,6 +46,27 @@ public class Model3dMetadataResource {
 
     @Inject
     private Model3dMetadataBean model3dMetadataBean;
+
+    private ModelParserApi modelParserApi;
+
+    @Inject
+    private RestProperties restProperties;
+
+    // @DiscoverService("image-processing-service")
+    private String modelParserServiceUrl;
+
+    @PostConstruct
+    private void init() {
+        modelParserServiceUrl = restProperties.getParserServiceIp();
+        try {
+            modelParserApi = RestClientBuilder
+                    .newBuilder()
+                    .baseUri(new URI(modelParserServiceUrl))
+                    .build(ModelParserApi.class);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Context
     protected UriInfo uriInfo;
@@ -74,6 +106,10 @@ public class Model3dMetadataResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
+        if(model3dMetadata.getNormals() == null || model3dMetadata.getVertices() == null){
+            model3dMetadata = parseModel3dMetadataAsync(model3dMetadata, model3dMetadataId);
+        }
+
         return Response.status(Response.Status.OK).entity(model3dMetadata).build();
     }
 
@@ -87,8 +123,6 @@ public class Model3dMetadataResource {
         if (model3dMetadata == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-
-
 
         return Response.status(Response.Status.OK).entity(model3dMetadata).build();
     }
@@ -106,6 +140,7 @@ public class Model3dMetadataResource {
 
         return Response.status(Response.Status.OK).entity(Base64.decodeBase64(model3dMetadata.getAssetBundleBinaryArray())).build();
     }
+
     @Log
     @POST
     public Response createModel3dMetadata(Model3dMetadata model3dMetadata) {
@@ -152,5 +187,101 @@ public class Model3dMetadataResource {
         else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    //@Timeout(value = 4, unit = ChronoUnit.SECONDS)
+    //@CircuitBreaker(requestVolumeThreshold = 3)
+    //@Fallback(fallbackMethod = "parseModelFallback")
+    public Model3dMetadata parseModel3dMetadata(Model3dMetadata model3dMetadata){
+        try {
+            String url = restProperties.getParserServiceIp();
+            System.out.println("This is the url: " + url);
+            URL obj = new URL(url);
+
+            JSONObject json = new JSONObject();
+
+            json.put("title", model3dMetadata.getTitle());
+            json.put("description", model3dMetadata.getDescription());
+            String binaryArraydataStr = model3dMetadata.getBinary();
+            String binaryArraydataAssetStr = model3dMetadata.getAssetBundleBinaryArray();
+            json.put("binaryArrayString", binaryArraydataStr);
+            json.put("assetBundleBinaryArray", binaryArraydataAssetStr);
+
+            HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
+            postConnection.setRequestMethod("POST");
+            postConnection.setRequestProperty("Content-Type", "application/json");
+            postConnection.setRequestProperty("request-chain", restProperties.getRequestChainHeader());
+            postConnection.setDoOutput(true);
+
+            OutputStream os = postConnection.getOutputStream();
+            os.write(json.toString().getBytes());
+            os.flush();
+            os.close();
+            int responseCode = postConnection.getResponseCode();
+            System.out.println("POST Response Code :  " + responseCode);
+            System.out.println("POST Response Message : " + postConnection.getResponseMessage());
+
+            if (responseCode == HttpURLConnection.HTTP_CREATED || responseCode == HttpURLConnection.HTTP_OK ) { //success
+                BufferedReader in = new BufferedReader(new InputStreamReader(postConnection.getInputStream()));
+
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in .readLine()) != null) {
+                    response.append(inputLine);
+                }
+
+                JSONObject jsonResponse = new JSONObject(response.toString());
+                // System.out.println("NUmber of vertices: " + response.toString());
+                model3dMetadata.setVertices((long)Integer.parseInt(jsonResponse.get("numberOfVertices").toString()));
+                model3dMetadata.setNormals((long)Integer.parseInt(jsonResponse.get("numberOfFaces").toString()));
+
+                in.close();
+
+                // System.out.println(response.toString());
+            } else {
+                System.out.println("POST NOT WORKED");
+            }
+
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return model3dMetadata;
+        }
+        return model3dMetadata;
+    }
+
+    // Return existing model without parsing for extra info (we're asuming the parser does not work)
+    public Model3dMetadata parseModelFallback(Model3dMetadata model3dMetadata){
+        return model3dMetadata;
+    }
+
+
+    public Model3dMetadata parseModel3dMetadataAsync(Model3dMetadata model3dMetadata, Integer model3dMetadataId){
+        // start image processing over async API
+        CompletionStage<String> stringCompletionStage =
+                modelParserApi.processImageAsynch(new ModelParserRequest(model3dMetadata.getTitle(),
+                        model3dMetadata.getDescription(),
+                        model3dMetadata.getBinary(),
+                        model3dMetadata.getAssetBundleBinaryArray()));
+        System.out.println("Before when complete");
+        stringCompletionStage.whenComplete((s, throwable) -> {
+            try{
+                JSONObject jsonResponse = new JSONObject(s);
+                // System.out.println("NUmber of vertices: " + response.toString());
+                model3dMetadata.setVertices((long)Integer.parseInt(jsonResponse.get("numberOfVertices").toString()));
+                model3dMetadata.setNormals((long)Integer.parseInt(jsonResponse.get("numberOfFaces").toString()));
+                System.out.println("PUT Response: " + model3dMetadataBean.putModel3dMetadata(model3dMetadataId, model3dMetadata));
+            }catch(Exception e){
+                System.out.println("Eecountered exception: " + e);
+            }
+
+        });
+        stringCompletionStage.exceptionally(throwable -> {
+            log.severe(throwable.getMessage());
+            return throwable.getMessage();
+        });
+
+        return model3dMetadata;
     }
 }

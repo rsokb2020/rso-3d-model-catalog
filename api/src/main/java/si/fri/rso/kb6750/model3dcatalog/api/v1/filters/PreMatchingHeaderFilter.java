@@ -22,12 +22,14 @@ public class PreMatchingHeaderFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext ctx)  {
-        System.out.println("Incoming headers: " + ctx.getHeaders().toString());
+        // System.out.println("Incoming headers: " + ctx.getHeaders().toString());
         String idFromHeader = ctx.getHeaderString("request-chain");
         if(idFromHeader == null){
             idFromHeader = UUID.randomUUID().toString();
         }
         restProperties.setRequestChainHeader(idFromHeader);
         ctx.getHeaders().add("request-chain", idFromHeader);
+
+        System.out.println("model-3d-comments: Request-chain header set to: " + restProperties.getRequestChainHeader());
     }
 }

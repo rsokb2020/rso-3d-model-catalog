@@ -35,7 +35,7 @@ public class LogContextInterceptor {
         //Todo: z rest filetrjom nastavljal request HEADER zato da se po logih lahko sledi enemu requestu
         settings.put("uniqueRequestId", restProperties.getRequestChainHeader());
 
-        System.out.println("Prematch ID: " + restProperties.getRequestChainHeader());
+        System.out.println("model-3d-catalog: uniqueRequestId set to: " + restProperties.getRequestChainHeader());
 
         try (final CloseableThreadContext.Instance ctc = CloseableThreadContext.putAll(settings)) {
             Object result = context.proceed();
