@@ -121,7 +121,7 @@ public class Model3dMetadataBean {
     //@Fallback(fallbackMethod = "parseModelFallback")
     public Model3dMetadata parseModel3dMetadata(Model3dMetadata model3dMetadata){
         try {
-            String url = restProperties.getParserServiceIp();
+            String url = restProperties.getParserServiceIp() + "/parseExisting";
             System.out.println("This is the url: " + url);
             URL obj = new URL(url);
 
