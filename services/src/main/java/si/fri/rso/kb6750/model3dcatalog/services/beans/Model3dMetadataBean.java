@@ -100,7 +100,7 @@ public class Model3dMetadataBean {
                 .uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
                 .header("content-type", "application/x-www-form-urlencoded")
                 .header("accept-encoding", "application/gzip")
-                .header("x-rapidapi-key", "f33893fe8fmshddc97ac82af1daep1eaecajsn2533728b7683\"")
+                .header("x-rapidapi-key", "f33893fe8fmshddc97ac82af1daep1eaecajsn2533728b7683")
                 .header("x-rapidapi-host", "google-translate1.p.rapidapi.com")
                 .method("POST", HttpRequest.BodyPublishers.ofString(q+"&source=en&target=sl"))
                 .build();
