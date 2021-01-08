@@ -19,3 +19,7 @@ spec:
             backend:
               serviceName: model-3d-parser
               servicePort: 8080
+          - path: /model-3d-comments(/|$)(.*) #/model-3d-catalog/v1/models
+            backend:
+              serviceName: model-3d-comments
+              servicePort: 8080

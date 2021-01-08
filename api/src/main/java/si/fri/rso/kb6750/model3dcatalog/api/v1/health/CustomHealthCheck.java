@@ -40,26 +40,7 @@ public class CustomHealthCheck extends KumuluzHealthCheck implements HealthCheck
 
 
     private static final String HEALTHY = "{\"health\":\"true\"}";
-/*
-    @Override
-    public HealthCheckResponse call() {
-        HealthCheckResponseBuilder healthCheckResponseBuilder = HealthCheckResponse.named(EtcdHealthCheck.class.getSimpleName()).up();
-        Optional<Integer> connectionUrls = ConfigurationUtil.getInstance().getListSize(name());
 
-        if (connectionUrls.isPresent()) {
-            for (int i = 0; i < connectionUrls.get(); i++) {
-                String connectionUrl =
-                        ConfigurationUtil.getInstance().get(name() + "[" + i + "].connection-url").orElse("");
-                checkEtcdStatus(connectionUrl, healthCheckResponseBuilder);
-            }
-        } else {
-            String connectionUrl = ConfigurationUtil.getInstance().get(name() + ".connection-url").orElse("");
-            checkEtcdStatus(connectionUrl, healthCheckResponseBuilder);
-        }
-
-        return healthCheckResponseBuilder.build();
-    }
-    */
     /**
      * Helper method for checking if etcd is online.
      */
@@ -71,9 +52,7 @@ public class CustomHealthCheck extends KumuluzHealthCheck implements HealthCheck
             response = webTarget.request().get();
 
             if (response.getStatus() == 200) {
-                // String result = response.readEntity(String.class).replaceAll("\\s+", "");
-                // System.out.println("Consul ping result:" + response);
-                //if (result != null && result.equals(HEALTHY)) {
+
                 healthCheckResponseBuilder.withData(connectionUrl, HealthCheckResponse.State.UP.toString());
                 return;
                 //}
