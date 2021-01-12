@@ -21,7 +21,10 @@
             <groupId>si.fri.rso.kb6750</groupId>
             <artifactId>model-3d-catalog-lib</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.kumuluz.ee.metrics</groupId>
+            <artifactId>kumuluzee-metrics-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
